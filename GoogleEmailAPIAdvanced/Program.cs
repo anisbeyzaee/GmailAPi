@@ -42,8 +42,7 @@ namespace GoogleEmailAPIAdvanced
             var msg = new AE.Net.Mail.MailMessage
             {
                 Subject = "Your Subject",
-                Body = "Hello, World, from Gmail API! \n You are Receiving this email as a reciepent of FIRE DETECTION ALARM SYSTEM\n" +
-                " Fire has been Detected in Image " + fileName + " at " + DateTime.UtcNow.ToString() + "\n",
+                Body = getBody(),
                 From = new MailAddress("AJEFDservice@gmail.com")
             };
             msg.To.Add(new MailAddress("anisbeyzaee@gmail.com"));
@@ -74,6 +73,11 @@ namespace GoogleEmailAPIAdvanced
             Console.Read();
             
 
+        }
+        private static string getBody()
+        {
+            return "Hello, World, from Gmail API! \n You are Receiving this email as a reciepent of FIRE DETECTION ALARM SYSTEM\n" +
+                 " Fire has been Detected in Image " + fileName + " at " + DateTime.UtcNow.ToString() + "\n";
         }
 
         private static string Base64UrlEncode(string input)
