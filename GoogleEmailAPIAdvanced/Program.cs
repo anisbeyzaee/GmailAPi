@@ -19,7 +19,7 @@ namespace GoogleEmailAPIAdvanced
         static string ApplicationName = "Google Sheets API .NET Quickstart";
         static string[] Scopes = { "https://www.googleapis.com/auth/gmail.send"};
         static string fileName = "Image of the California";
-
+        
         public static void SendIt()
         {
             UserCredential credential;
@@ -47,10 +47,15 @@ namespace GoogleEmailAPIAdvanced
                 From = new MailAddress("AJEFDservice@gmail.com")
             };
             msg.To.Add(new MailAddress("anisbeyzaee@gmail.com"));
+            msg.To.Add(new MailAddress("aniss_b_b@yahoo.com"));
+            msg.To.Add(new MailAddress("aniss_b_b@yahoo.com"));
+            msg.To.Add(new MailAddress("anisbeyzaee@gmail.com"));
+            msg.To.Add(new MailAddress("omlet3d@yahoo.com"));
+            msg.To.Add(new MailAddress("aniss_b_b@yahoo.com"));
             msg.ReplyTo.Add(msg.From); // Bounces without this!!
             var msgStr = new StringWriter();
             msg.Save(msgStr);
-
+            
             var gmail = new GmailService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
@@ -60,7 +65,15 @@ namespace GoogleEmailAPIAdvanced
             {
                 Raw = Base64UrlEncode(msgStr.ToString())
             }, "me").Execute();
-            Console.WriteLine("Message ID {0} sent.", result.Id);
+            List<MailAddress> list = msg.To.ToList<MailAddress>();
+            Console.WriteLine("Message ID {0} sent. All Reciepents {1}", result.Id, msg.To.AsEnumerable<MailAddress>().ToString());
+            foreach(MailAddress ma in msg.To.ToList<MailAddress>())
+            {
+                Console.WriteLine("Receiver : " + ma.Address + " ," + ma.DisplayName + " ," + ma.Host + ", " + ma.User + " ," + ma.ToString());
+            }
+            Console.Read();
+            
+
         }
 
         private static string Base64UrlEncode(string input)
